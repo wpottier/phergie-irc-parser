@@ -210,8 +210,9 @@ class Parser implements ParserInterface
         $nick = "(?:[\\*$letter$special][$letter$number$special-]*)";
         $user = "(?:[^ $null$crlf@]+)";
         $prefix = "(?:(?:(?P<nick>$nick)(?:!(?P<user>$user))?(?:@(?P<host>$host))?)|(?P<servername>$host))";
-        $message = "(?P<prefix>:$prefix )?$command$params$crlf";
-        $this->message = "/^$message\$/SU";
+        $tags = "(?<tags>@[a-z=A-Z\/0-9,;#-]+)";
+        $message = "$tags?[ ]?(?P<prefix>:$prefix )?$command$params$crlf";
+        $this->message = "/^$message\$/S";
 
         $chstring = "[^ \a$null,$crlf]+";
         $channel = $this->channel = "(?:[#&]$chstring)";
